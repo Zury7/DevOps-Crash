@@ -1,0 +1,139 @@
+Features of orchestration  tools
+HA
+Scalability
+DR 
+K8 architecture 
+1 master node : ctrl plane 
+	API server: entrypoint o K8 cluster 
+	Controller manager : keeps track of what happening in cluster 
+	scheduler : ensures pods placement 
+	etcd : K8 status data and backing store to recover whole cluster in DR
+worker nodes : nide agent: kubectl
+These 2 are connected through a virtual network to unify the K8 system
+at least 2 masters are required 
+K8 components
+Node : virtual or physical machine 
+pod : a running env on top of a container / usually 1 app per pod
+each pod has an IP and communicate through it 
+pods are ephemeral : can die easily 
+once happened: a new IP on recreation
+service: Permanent IP address on each pod 
+life cycle of pod and service are not connected 
+could be external or internal
+http://node-ip:port for testing
+Ingress: route traffic to cluster
+configMap : db URL usually in built app but in K8 services are separately named 
+DB_URL = mongodb : config map stores external config data 
+secret : used to store secret data like db username, passwd/ certificates / can be use as env file 
+volume : when pod resrated, data will be gone thus an attached storage of pod more like a ref to HDD separate storage from pod 
+replica : same copy of node 
+define blueprint for pods and specify how many replicas need: deployments
+scale down or up the #replicas in pod
+DBs cannot be replicated through deployment since stateful 
+statefulset : for stateful apps/ dbs replication
+since it is tricky, DBs are often hosted outside K8 cluster 
+K8 configuration 
+UI/ API/ CLI initiates request to api server either in json or yaml format
+declarative : Is == Should to make desired state = actual state 
+each config has 3 parts:
+1) metadata 
+2) specification 
+attributes in spec are specific to kind 
+3) status ( automatically generated and edited by Kubernetes) / self healing feature when desired != actual 
+etcd provides status data for self healing process 
+format of config file : yaml
+often store config within your code or hav own git repo 
+strictly intended 
+minikube : full K8 simulation env for testing process 
+kubectl : the way to interact with minikube 
+kubectl talks to api server of minikube / also used to interact with cloud cluster 
+brew install minikube 
+minikube start --driver docker (either as docker or vm)
+kubectl get node  : all nodes in cluster 
+
+Demo project 
+nnajanashia/k8-demo-app
+4 config files
+ConfigMap : MongoDB endpoint 
+Secret : MongoDB user passwd
+Deployment : MongoDB app with internal service 
+Deployment :  Our application with external service 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

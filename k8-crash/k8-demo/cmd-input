@@ -1,0 +1,28 @@
+docker pull mongo
+docker pull nanajanashia/k8s-demo-app
+
+kubectl get pod
+kubectl apply -f mongo-config.yaml
+kubectl apply -f mongo-secret.yaml
+kubectl apply -f mongo.yaml
+kubectl apply -f webapp.yaml
+kubectl get all 
+kubectl get configmap
+kubectl get pod
+kubectl --help
+kubectl describe service webapp-service 
+kubectl describe pod <pod_name>
+kubectl logs <pod_name>
+
+
+kubectl get svc 
+minikube ip
+kubectl get node 
+kubectl get node -o wide
+kubectl get svc -o wide 
+kubectl get pod -o wide 
+
+access <minikube_ip>:30100
+edit and check the functionality of db
+
+
