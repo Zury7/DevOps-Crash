@@ -1,0 +1,153 @@
+Image : app + env
+container : running env of app 
+Virtual Machine 
+docker images : to check images 
+docker ps :  to check containers 
+nethopper.io
+docker registries : official images storage and distribution service ex: Docker Hub 
+docker pull nginx:1.23 : to get the image to local docker 
+docker images 
+if use 
+docker pull nginx (the latest will get downloaded)
+docker run nginx:1.23
+docker ps
+to run container in background and prints the container ID
+docker run -d nginx:1.23
+docker ps
+to view logs from service running inside the container 
+docker logs <container_id>
+docker run first check the locally and if not pull automatically and run
+port binding : to expose the container port to the host's
+to make service available to the outside world
+docker stop <id>
+docker run -d -p 9000:80 nginx:1.23
+-p or --publish (host port: container port>
+docker logs <id>
+docker run always create a new container
+docker ps only shows one but to see all use
+docker ps -a 
+docker stop <id>
+to restart : docker start <id>
+to give container a name 
+docker run --name web-app -d -p 9000:80 nginx:1.23
+Private docker registries for companies: ECR/Google container Registry etc/ Nexus/ Docker hub
+Registry vs Repository
+A service providing collection of versioned repos (Docker Hub) vs collection of images of a company
+Docker file: a text doc that contains cmds to assemble an image / docker reads this when deploying the image 
+1. src/server.js file
+const express = require('express');
+const app = express();
+
+app.get('/',(req,res)=>{
+	res.send("Welcome!");
+});
+app.lsten(3000, function () {
+	console.log("app is listening on port 3000");
+});
+2. package.json
+3. create Dockerfile
+starts from base image what your app is built upon 
+FROM node:19-alpine 
+
+copy content to container
+COPY package.json /app/
+COPY src /app/
+
+to go inside app
+WORKDIR /app
+
+run cmd to install dependency
+RUN npm install 
+
+CMD ["node","server.js"]
+
+Build image 
+docker build -t node-app:1.0 .
+#docker file get built 
+
+docker images 
+docker run -d -p3000:3000 node-app:1.0
+docker ps 
+docker logs <id>
+
+Complete cycle:
+1. dev develops js app with mongodb
+2. he commits to Git 
+3. CI server get triggered and builds docker image 
+4. docker img is pushed to private repository
+5. docker img get pulled by deployment server and from imgs will also get automatically get downloaded 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

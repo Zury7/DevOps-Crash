@@ -1,0 +1,717 @@
+ssh login
+
+ip a : which ip i am in
+open ssh client 
+ssh aaron@192.168.0.17
+ssh <username>@<ip_address>
+enter passwd
+logged in 
+exit: to close the connection
+
+help cmds 
+ls --help : list out what it does 
+journalctl --help 
+man journalctl : to get manual pages 
+man man
+man 1 printf
+man 3 printf 
+if forget cmd option use --help 
+searching for commands - apropos
+apropos director 
+sudo mandb 
+apropos -s 1,8 director 
+systemc TAB : mini suggestions
+systemc TAB TAB : list of mini susggestions 
+systemctl list-dependencies TAB : for auto completion 
+ls /us TAB -> ls /usr/
+
+del/copy/move in file systems 
+ls : to list files and diretcories
+<hidden .directories>
+ls -a : to list all hidden unhidden 
+ls -l /var/log/ : to list out in detailed format
+ls -a -l or ls -al : best in both
+ls -alh : h provides the human readable size 
+file system tree : starts from root or /
+absolute path: /exact location like /home/aaron/documents/invoice.pdf
+pwd : print working directory
+shows where are we now 
+cd : change directory
+cd /var/log : go to mention path downwards 
+cd .. : go up to parent directory
+relative path: remaining from now onwards 
+../invoice.pdf : go one directory up and go invoice.pdf
+invoice.pdf : go to invoice .pdf from this point 
+
+cd / : go to root
+cd - : go to previous directory
+cd : go to home directory 
+
+create files
+touch receipt.odf
+touch /home/jane/receipt/pdf
+touch ../jane/receipt.pdf
+
+create directory 
+mkdir receipts
+
+copy files
+cp <source_path> <destination_path>
+cp receipt.pdf Receipts/
+
+copy directories
+cp -r <source> <dest>
+cp -r Receipts/ BackupIfReceipts/
+
+moving files 
+mv <source> <dest>
+mv receipt.pdf Receipts/
+mv receipt.pdf oldreceipt.pdf 
+mv Receipts/ BackupIfReceipts/
+
+deleting files 
+rm invoice.pdf
+rm -r Invoices/
+
+hard links 
+echo "my dog" > Pictures/family_dog.jpg
+stat Pictures/family_dog.jpg'
+Inode and links 
+cp -r  /home/aaron/Pictures/family_dog.jpg /home/jane/Pictures/family_dog.jpg
+rather than copying, we can hard link it 
+ln <path to target> < path to link file>
+ln  /home/aaron/Pictures/family_dog.jpg /home/jane/Pictures/family_dog.jpg
+if rm  /home/aaron/Pictures/family_dog.jpg 
+still jane can access the jpg file 
+
+only hardlink files not folders 
+only hardlink to files on the same filesystem 
+useradd -a -G family aaron
+useradd -a -G family jane
+chmod 660 /home/aaron/Pictures/family_dog.jpg
+
+soft links
+hardlink links to Inode but softlink links to path of hardlink
+ln -s <path to target> <path to link file>
+ln -s /home/aaron/Pictures/family_dog.jpg /home/jane/Pictures/family_dog.jpg
+ls -l
+readlink family_dog_shortcut.jpg
+echo "Test" >> fstab_shortcut
+# Permission denied 
+
+folders/ different file systems could be soft linked 
+
+Owners and Groups
+ls -l
+any file directory is owned by an owner 
+chgrp wheel family_dog.jpg
+groups : list out groups
+sudo chown jane family_dog.jpg
+sudo chown aaron:family family_dog.jpg
+
+Linux file types
+d : directory
+- : regular file
+c : character device
+l : link
+s : socket file
+p : pipe
+b : block device 
+
+Linux file permissions 
+first 3: owner / second 3: group / last 3: others
+r :  read
+w : write 
+x : execute 
+- : no permission 
+
+Linux directory permissions
+r :  read content in directory -> ls Pictures/
+w : write to directory -> mkdir Pictures/Family
+x : execute -> cd Pictures 
+- : no permission 
+
+Change Permissions 
+chmod <permissions> file/directory
+
+add to user u+
+add to group g+
+add to others o+
+ls -l
+chmod u+w family_dog.jpg
+ls -l
+
+remove from user u-
+remove from group g-
+remove from others o-
+ls -l
+chmod o-r family_dog.jpg
+ls -l
+
+Setting exact permission
+for user u=
+for group g=
+for others o=
+ls -l
+chmod g=r family_dog.jpg
+ls -l
+chmod g=rw family_dog.jpg
+ls -l
+chmod g-rwx family_dog.jpg
+
+Chaining permissions
+ls -l
+user at least r and w, group only read and others with no permissions
+chmod u+rw,g=r,o= family_dog.jpg
+ls -l
+
+Octal permissions 
+stat family_dog.jpg
+rwx = 111 = 7
+r-x = 101 = 5
+r-- = 100 = 4
+alternative : 
+r = 4 / w = 2 / x = 1
+
+chmod 640 family_dog.jpg
+
+less pager: less <path>
+/debug : / for searching keywords
+/-i : for case insensitive searching 
+Q: to quit the pager
+more pager: more <path>
+VIM 
+i: insert 
+start typing text 
+/: search 
+/this\c : to make case insensitive 
+:3 : go to line no mentioned 
+press y key 2 times to copy the line 
+go the line 
+press p to paste in there 
+:w : give file name 
+:wq : quit with saving
+:q! : quit without saving 
+to open : vim <filename>
+
+Search files using grep
+grep 'CentOS' /etc/os-release
+grep -i 'CentOS' /etc/os-release: case insensitive 
+grep -r 'CentOS' /etc/
+grep -ir 'CentOS' /etc/
+sudo grep -r 'CentOS' /etc/
+
+for invert searching
+grep -vi 'centos' /etc/os-release
+grep -wi 'centos' /etc/os-release : to match only words
+grep -oi 'centos' /etc/os-release : to remove unnecessary content
+
+analyze text with regex
+regex built with: 
+^:^sam : words starts with sam
+$:$sam : words ends with sam 
+$: mail$ : words end with mail
+.: c.t : words with c<any>t
+\: Escaping for special characters 
+*: let* : allow previous character to aply one or more 
++: 0+ : match the previous element one or more 
+{}?|[]()[^]
+
+extended regex
+{}: previous element can exist "this many" times 
+egrep -r '0{3, }' /etc/
+egrep -r '0{ ,10}' /etc/
+egrep -r '0{3}' /etc/
+egrep -r 'disabled?' /etc/
+egrep -r '0{3,10}' /etc/
+|: match one thing or other 
+egrep -r 'enabled?|disabled?' /etc/
+
+Manage local user accounts
+sudo useradd john
+	user get added/ john group get added / /home/john and /bin/bash is created 
+ls -a /etc/skel
+useradd -deafults 
+cat /etc/login.defs
+sudo passwd john
+sudo userdel john
+sudo userdel --remove john = sudo userdel -r john
+sudo useradd --shell /bin/othershell --home-dir /home/otherdirectory/ john
+sudo useradd -s /bin/othershell -d/home/otherdirectory/ john
+
+
+cat /etc/passwd
+uid|gid|home_dire|shell
+to manually select uid: sudo useradd --uid 1100 smith
+ls -l /home/
+ls -ln /home/
+id : to know the id
+whoami
+sudo useradd --system sysacc
+
+sudo useradd john
+change john's home directory
+sudo usermod --home /home/otherdirectory --move-home john
+sudo usermod -d /home/otherdirectory -m john
+to change name 
+sudo usermod --login jane john = sudo usermod -l jane john
+to change shell
+sudo usermod --shell /bin/othershell jane = sudo usermod -s /bin/othershell jane 
+to lock acc
+sudo usermod --lock jane 
+sudo usermod --unlock jane
+to set acc for a period 
+sudo usermod --expiredate 021-12-10 jane 
+to expire the password
+sudo chage --lastday 0 jane 
+to unexpired the passwd
+sudo chage --lastday -1 jane 
+max days for passwd expiration
+sudo chage --maxdays 30 jane
+to never expire password 
+sudo chage --maxdays -1 jane 
+sudo chage --list jane 
+
+Group permissions 
+Primary/ login group 
+Secondary group
+sudo useradd john
+sudo groupadd developers
+sudo gpasswd --add john developers 
+sudo gpasswd --a john developers 
+groups john
+sudo gpasswd --delete john developers 
+sudo gpasswd --d john developers 
+to change the group
+sudo usermod -g developers john
+sudo usermod --gid developers john
+groups john
+gpasswd --help
+to rename group 
+sudo groupmod --new-name programmers developers 
+sudo groupmod -n programmers developers 
+to delete group
+sudo groupdel programmers 
+sudo usermod --gid john john
+sudo groupdel programmers 
+
+Configure user resource limits 
+sudo vim /etc/security/limits.conf
+<domain> : uname/ @gname / *(set this for everyone)
+<type>: hard : cannot be over wriiten by users/ soft : initial value is set and slight increase is accepted / - : both for soft and hard 
+<item> :  what this limit is for 
+nproc #max processes / fsize #max file size / cpu : time for cpu allocation / 
+man limits.conf
+sudo -iu trinity 
+ps | less 
+ls -a | grep bash | less 
+
+ulimit -a : to see limits for the current session
+ulimit -u 5000
+
+Manage user privileges 
+sudo gpasswd -a trinity wheel
+sudo gpasswd -d trinity wheel
+sudo visudo 
+%wheel ALL=(ALL)  ALL
+%group name host field = run as field   list of cmd with sudo
+user/group host=(run_as_user) command_list
+
+Manage access to root account 
+sudo ls /root/
+sudo --login =sudo -i
+logout 
+some systems have locked the root account 
+sudo passwd root
+sudo passwd --unlock root
+su - 
+
+to lock root
+sudo passwd --lock root
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
