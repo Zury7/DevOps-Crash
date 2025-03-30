@@ -1,0 +1,60 @@
+🔹 Basic Docker Commands
+docker version – Show installed Docker version
+docker info – Display system-wide Docker information
+docker help – Get help on Docker commands
+
+🛠️ Container Management
+docker run <image> – Run a container from an image
+docker run -d <image> – Run a container in detached mode
+docker run -it <image> bash – Run an interactive container with a shell
+docker ps – List running containers
+docker ps -a – List all containers (including stopped)
+docker start <container_id> – Start a stopped container
+docker stop <container_id> – Stop a running container
+docker restart <container_id> – Restart a container
+docker rm <container_id> – Remove a container
+docker logs <container_id> – Show container logs
+docker exec -it <container_id> bash – Access a running container’s shell
+docker inspect <container_id> – View container details
+
+📦 Image Management
+docker images – List available Docker images
+docker pull <image> – Download an image from Docker Hub
+docker build -t <image_name> . – Build an image from a Dockerfile
+docker tag <image> <repo>:<tag> – Tag an image
+docker push <repo>:<tag> – Push an image to a registry
+docker rmi <image> – Remove an image
+docker history <image> – Show the history of an image
+
+🔄 Networking
+docker network ls – List Docker networks
+docker network create <network_name> – Create a custom network
+docker network inspect <network_name> – View network details
+docker network connect <network_name> <container_id> – Connect a container to a network
+docker network disconnect <network_name> <container_id> – Disconnect a container from a network
+
+📁 Volumes & Storage
+docker volume ls – List all Docker volumes
+docker volume create <volume_name> – Create a new volume
+docker volume inspect <volume_name> – Inspect volume details
+docker volume rm <volume_name> – Remove a volume
+docker run -v <volume_name>:/path/in/container <image> – Mount a volume to a container
+
+⚙️ Compose & Swarm (Orchestration)
+docker-compose up – Start services from a docker-compose.yml file
+docker-compose down – Stop and remove containers from a docker-compose.yml file
+docker swarm init – Initialize Docker Swarm
+docker service ls – List all running services in Swarm
+
+📊 Monitoring & Debugging
+docker stats – Display real-time resource usage of containers
+docker top <container_id> – Show running processes inside a container
+docker diff <container_id> – Show changes in a container’s filesystem
+docker events – Show real-time Docker events
+
+🛑 Cleaning Up
+docker system prune – Remove unused containers, images, networks, and volumes
+docker container prune – Remove all stopped containers
+docker image prune – Remove unused images
+docker network prune – Remove unused networks
+docker volume prune – Remove unused volumes

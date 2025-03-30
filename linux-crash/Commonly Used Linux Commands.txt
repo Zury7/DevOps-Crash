@@ -1,0 +1,83 @@
+🔹 Commonly Used Linux Commands
+
+1️⃣ File and Directory Management
+ls – List files and directories
+pwd – Print working directory
+cd <dir> – Change directory
+mkdir <dir> – Create a directory
+rmdir <dir> – Remove an empty directory
+rm -r <dir> – Remove directory and contents
+touch <file> – Create a new file
+cp <src> <dest> – Copy files or directories
+mv <src> <dest> – Move or rename files
+rm <file> – Remove file
+
+2️⃣ File Viewing & Editing
+cat <file> – View file contents
+tac <file> – View file in reverse order
+nano <file> – Edit file using nano editor
+vim <file> – Edit file using vim editor
+less <file> – View file one page at a time
+head <file> – Show first 10 lines of a file
+tail <file> – Show last 10 lines of a file
+
+3️⃣ Permissions & Ownership
+ls -l – List files with permissions
+chmod 755 <file> – Change file permissions (r = 4 / w = 2 / x = 1)
+chown user:group <file> – Change file owner
+umask – Set default permissions
+
+4️⃣ Process Management
+ps – Show running processes
+top – Display real-time system stats
+kill <PID> – Terminate process by PID
+killall <name> – Kill all processes by name
+bg – Resume process in the background
+fg – Resume process in the foreground
+jobs – Show background jobs
+
+5️⃣ Networking
+ping <host> – Check network connectivity
+wget <URL> – Download files from the web
+curl <URL> – Fetch web content
+ifconfig / ip addr – Display network interfaces
+netstat -tulnp – Show open ports
+
+6️⃣ User Management
+whoami – Show current user
+who – Show logged-in users
+id – Display user ID and group ID
+passwd – Change user password
+adduser <user> – Create a new user
+deluser <user> – Delete a user
+usermod -aG <group> <user> – Add user to a group
+
+7️⃣ Disk & Storage
+df -h – Show disk space usage
+du -sh <dir> – Show directory size
+mount <device> <mountpoint> – Mount a filesystem
+umount <mountpoint> – Unmount a filesystem
+
+8️⃣ System Monitoring
+uptime – Show system uptime
+free -m – Show RAM usage
+dmesg – Show system boot messages
+history – Show command history
+uname -a – Show system info
+
+9️⃣ Archiving & Compression
+tar -cvf archive.tar <files> – Create a tar archive
+tar -xvf archive.tar – Extract a tar archive
+zip -r archive.zip <files> – Create a zip archive
+unzip archive.zip – Extract a zip archive
+
+🔟 Package Management
+🔹 Debian-based (Ubuntu, Debian):
+apt update – Update package lists
+apt upgrade – Upgrade installed packages
+apt install <package> – Install a package
+apt remove <package> – Remove a package
+
+🔹 RHEL-based (CentOS, Fedora):
+yum install <package> – Install package
+yum remove <package> – Remove package
